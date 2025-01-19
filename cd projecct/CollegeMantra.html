@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chatbot JavaScript</title>
   <style>
-       /* CSS Styles */
+    /* CSS Styles */
     * {
       margin: 0;
       padding: 0;
@@ -17,39 +17,44 @@
       width: 100vw;
       height: 100vh;
       font-family: sans-serif;
-      background: url("https://wallpaperaccess.com/full/1711834.gif");
+      background: url("https://cdn.wallpapersafari.com/96/2/h8BUqx.png");
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: flex-start; /* Align content to the left */
-      padding-left: 3rem; /* Add padding to the left */
-    }
-  .glass {
-      width: 550px;
-      height: 400px;
-      background-color: rgba(173, 216, 230, 0.7);
-      padding: 50px;
-      color: white; /* Black text inside */
-      border-radius: 20px;
-      border: none;
-      box-shadow: 
-        0 0 15px rgba(0, 255, 255, 0.8), /* Neon blue outer shadow */
-        0 0 30px rgba(0, 255, 255, 0.6),
-        0 0 45px rgba(0, 255, 255, 0.4);
-      line-height: 1.5;
-      text-align: center;
+      justify-content: flex-start;
+      padding-top: 2rem;
     }
 
+    .glass {
+  width: calc(100% - 40px); /* Spans the entire width minus padding */
+  max-width: 1200px; /* Optional max width */
+  height: 250px;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 30px;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  box-shadow: 
+    0 0 15px rgba(0, 255, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6),
+    0 0 45px rgba(0, 255, 255, 0.4);
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 50px; /* Space below the top of the page */
+}
+
+
     .glass h1 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       text-shadow: 0 0 10px rgba(192, 192, 192, 0.7);
     }
 
     .input {
       width: 100%;
-      margin-top: 40px;
+      margin-top: 20px;
     }
 
     .input input {
@@ -57,31 +62,43 @@
       height: 55px;
       border: 2px solid rgba(0, 255, 255, 0.8);
       background-color: transparent;
-      color: white; /* Black text for the input field */
+      color: white;
       padding-left: 20px;
-      font-family: "Orbitron", sans-serif; /* Robotic font style */
-
+      font-family: "Orbitron", sans-serif;
       font-size: 1.5rem;
-      border-radius: 20px;
+      border-radius: 10px;
       outline: none;
       box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
     }
 
     .input input::placeholder {
-      color: white; /* Blackish placeholder */
+      color: white;
     }
 
-    .glass p {
-      font-size: 1.6rem;
-      margin-top: 30px;
-      color: black;
-    }
+    .output {
+  display: none; /* Initially hidden */
+  width: calc(100% - 40px); /* Same width as the glass box */
+  max-width: 1200px; /* Optional max width */
+  height: auto; /* Dynamic height based on content */
+  min-height: 50px; /* Minimum height to maintain a neat appearance */
+  margin-top: 20px;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border-radius: 10px;
+  box-shadow: 
+    0 0 15px rgba(0, 255, 255, 0.8),
+    0 0 30px rgba(0, 255, 255, 0.6),
+    0 0 45px rgba(0, 255, 255, 0.4);
+  font-size: 1.2rem;
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+  overflow-y: hidden; /* No scroll initially, we'll calculate the height */
+  white-space: pre-wrap; /* Preserve spaces and line breaks */
+}
 
-    #chatLog {
-      display: none; /* Initially hide the chat log */
-    }
 
-   .help-button {
+    .help-button {
      position: fixed; /* Fixed positioning so it stays at the bottom-right of the page */
      bottom: 10px; /* Position from the bottom */
      right: 10px; /* Position from the right */
@@ -111,29 +128,42 @@
      transform: scale(1.2); /* Slight zoom effect on hover */
      opacity: 1; /* Full opacity on hover */
    }
-   .footer {
-    background: transparent; /* Remove background */
-    color: rgba(255, 255, 255, 0.7); /* Reduce transparency of the text */
-    text-align: center;
-    padding: 10px;
-    position: absolute;
-    bottom: 6px;
-    width: 100%;
-    right: 640px;
-    font-size: 0.8rem; /* Adjust this value to reduce text size */
+   #openBtn {
+  background-color: #00d9ff; /* Light cyan background */
+  color: white; /* White text */
+  border: none; /* Remove border */
+  padding: 15px 30px; /* Increase padding for better size */
+  font-size: 1.2rem; /* Increase font size */
+  border-radius: 25px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: all 0.3s ease; /* Smooth transition for hover effects */
+  margin-top: 15px; /* Space between message and button */
 }
 
+#openBtn:hover {
+  background-color: #00a5b0; /* Darker cyan background on hover */
+  transform: scale(1.1); /* Slightly increase size on hover */
+}
 
+    .footer {
+      background: transparent;
+      color: rgba(255, 255, 255, 0.7);
+      text-align: center;
+      padding: 10px;
+      position: absolute;
+      bottom: 6px;
+      width: 100%;
+      font-size: 0.8rem;
+    }
   </style>
-
 </head>
 <body>
   <div class="glass">
-    <h1 style="font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: bold; text-transform: uppercase; text-decoration: underline; margin-bottom: 10px; color: #ffffff;">
-     <u>COLLEGE MANTRA</u>
+    <h1 style="font-family: 'Roboto', sans-serif; font-size: 2rem; font-weight: bold; margin-bottom: 10px; color: #ffffff;">
+      College Mantra
     </h1>
     <p style="font-family: 'Roboto', sans-serif; font-size: 1.2rem; color: #d1f7ff; margin-top: 10px; line-height: 1.5;">
-     Your all-in-one college guide!<br>Explore SRIT Like Never Before!
+      Your all-in-one college guide! Explore SRIT Like Never Before!
     </p>
 
     <div class="input">
@@ -144,154 +174,332 @@
         placeholder="Type your Question"
       />
     </div>
-    <p id="chatLog"></p> <!-- Initially empty chat log -->
   </div>
+
+  <!-- Output container below the glass -->
+  <div class="output" id="chatLog">
+    Your answer will appear here...
+  </div>
+
   <div class="footer">
     <p>&copy; College Mantra | All Rights Reserved</p>
-</div>
+  </div>
+
   <!-- Circular button for Help -->
- <a href="collegeMantraHelp.html" class="help-button">💬</a>
+  <a href="help.html" class="help-button">💬</a>
   <script>
-    // Embedded JavaScript Functionality
-    function talk() {
-     var user = document.getElementById('userBox').value.trim().toLowerCase();
-     var chatLog = document.getElementById('chatLog');
-     chatLog.innerHTML = "";
-     chatLog.style.display = 'block';
-     let s = user.toLowerCase();
-    // Responses for known queries, including location details
-    /*var know = {
-      "canteen": "The canteen is located beside the main block",
-      "cse hod cabin": "It is at b block 2nd floor",
-      "hod cabin of cse":"It is at b block 2nd floor",
-      "cse department":"It is at b block 2nd floor",
-      "hod cabin of computer science and engineering":"It is at b block 1st floor",
-      "examination section": "Located at the main block",
-      "exam centre": "Present at the main block ground floor",
-      "fee payment": "It will be there in the main block",
-      "pay fee": "In the main block",
-      "computer labs":"There is one in the b-block, c-block and as well as main block",
-      "administration office": "The administration office is in main block",
-      "faculty room": "The faculty room is on the first floor of Block B.",
-      "main block seminar hall":"Present at the ground floor of the main block",
-      "b block seminar hall":"Present at the ground floor of b block" 
-    };
+  // Embedded JavaScript Functionality
+  function talk() {
+  var userBox = document.getElementById('userBox');
+  var user = userBox.value.trim().toLowerCase();
+  var chatLog = document.getElementById('chatLog');
 
-    // Check if the user's input includes keywords for location queries
-    if (user.includes("find location of") || user.includes("where is the") || user.includes("find the location of")|| user.includes("where is")){
-      // Extract the location name from the input
-      var location = user
-        .replace("find location of", "")
-        .replace("find the location of","")
-        .replace("where is the", "")
-        .replace("where is", "")
-        .trim();
+  // If input is cleared, hide the output box
+  if (user === "") {
+    chatLog.style.display = 'none';
+    return;
+  }
 
-      if (know[location]) {
-        chatLog.innerHTML += know[location] + "<br>";
-      } 
-      
-      else {
-        chatLog.innerHTML += "Sorry, I couldn't find that location in the college.<br>";
-      }
-    }*/  
-    // Handle specific predefined queries
-    if (user === "who are you") {
-      chatLog.innerHTML += "Hello ☺, Iam College mantra your chat assistant.<br>Feel free to ask anything";
+  chatLog.innerHTML = ""; // Clear previous messages
+  chatLog.style.display = 'block'; // Show the output box
+
+  let s = user.toLowerCase();
+  // Responses for known queries, including location details
+ /*var know = {
+    "library": () => (window.location.href = "library.html"),
+    "canteen": () => (window.location.href = "canteen.html"),
+    "cafe": () => (window.location.href = "canteen.html"),
+    "girls hostel": () => (window.location.href = "girlshostel.html"),
+    "boys hostel": () => (window.location.href = "boyshostel.html"),
+    "girls washroom": () => (window.location.href = "girlswashroom.html"),
+    "boys washroom": () => (window.location.href = "boys washroom.html"),
+    "sports and ncc room": () => (window.location.href = "sportsandnccroom.html"),
+    "main block seminar hall": () => (window.location.href = "mainblockseminarhall.html"),
+    "b block seminar hall": () => (window.location.href = "bblockseminarhall.html"),
+    "physics lab": () => (window.location.href = "physicslab.html"),
+    "chemistry lab": () => (window.location.href = "chemistrylab.html"),
+    "computer labs": () => (window.location.href = "computerlabs.html"),
+    "ground": () => (window.location.href = "ground.html"),
+    "basketball": () => (window.location.href = "basketball.html"),
+    "exam section": () => (window.location.href = "examsection.html"),
+    "fee payment": () => (window.location.href = "feepayment.html"),
+    "water": () => (window.location.href = "waterfacility.html")
+  };
+
+  // Check if the user's input includes keywords for location queries
+  if (
+    user.includes("find location of") ||
+    user.includes("where is the") ||
+    user.includes("where can i find")||
+    user.includes("find the location of") ||
+    user.includes("where is")
+  ) {
+    // Extract the location name from the input
+    var location = user
+      .replace("find location of", "")
+      .replace("find the location of", "")
+      .replace("where is the", "")
+      .replace("where can i find", "")
+      .replace("where is", "")
+      .trim();
+
+    // Check if the location is known
+    if (know[location]) {
+      know[location](); // Execute the function to redirect to the corresponding page
+    } else {
+      chatLog.innerHTML += "Sorry, I couldn't find that location in the college.<br>";
     }
+  }*/
+if (s.includes("girls hostel") || s.includes("hostel girls")) {
+  window.location.href = "girlshostel.html"; // Navigate directly to the page
+} else if (s.includes("girls washroom") || s.includes("girls restroom") || s.includes("girls toilet") || s.includes("ladies")) {
+  window.location.href = "girlswashroom.html"; // Navigate directly to the page
+} else if (s.includes("ground")) {
+  window.location.href = "ground.html"; // Navigate directly to the page
+} else if (s.includes("main block seminar hall") || s.includes("seminar hall of main block")) {
+  window.location.href = "mainblockseminarhall.html"; // Navigate directly to the page
+} else if (s.includes("physics")) {
+  window.location.href = "physics lab.html"; // Navigate directly to the page
+} else if (s.includes("principal room") || s.includes("principal cabin")) {
+  window.location.href = "principalroom.html"; // Navigate directly to the page
+} else if (s.includes("sports and ncc room") || s.includes("sports room") || s.includes("ncc room")) {
+  window.location.href = "sports and ncc room.html"; // Navigate directly to the page
+} else if (s.includes("water")) {
+  window.location.href = "waterfacility.html"; // Navigate directly to the page
+} else if (s.includes("library")) {
+  window.location.href = "library.html"; // Navigate directly to the page
+} else if (s.includes("basket")) {
+  window.location.href = "basketball.html"; // Navigate directly to the page
+} else if (s.includes("b block") || s.includes("b block seminar hall")) {
+  window.location.href = "bblockseminarhall.html"; // Navigate directly to the page
+} else if (s.includes("boys washroom") || s.includes("boys restroom") || s.includes("boys toilet") || s.includes("gents")) {
+  window.location.href = "boys washroom.html"; // Navigate directly to the page
+} else if (s.includes("boys hostel") || s.includes("hostel boys")) {
+  window.location.href = "boyshostel.html"; // Navigate directly to the page
+} else if (s.includes("canteen") || s.includes("cafe")) {
+  window.location.href = "canteen.html"; // Navigate directly to the page
+} else if (s.includes("chemistry")) {
+  window.location.href = "chemistrylab.html"; // Navigate directly to the page
+} else if (s.includes("computer lab")) {
+  window.location.href = "computer labs.html"; // Navigate directly to the page
+} else if (s.includes("eee lab") || s.includes("ece lab") || s.includes("electrical lab") || s.includes("electronics lab") || s.includes("beee")) {
+  window.location.href = "eee lab.html"; // Navigate directly to the page
+} else if (s.includes("exam section") || s.includes("exam centre") || s.includes("hall ticket")) {
+  window.location.href = "examsection.html"; // Navigate directly to the page
+} else if (s.includes("fee payment") || s.includes("bus fee") || s.includes("miscellaneous fee") || s.includes("tuition fee") || s.includes("college fee")) {
+  window.location.href = "feepayment.html"; // Navigate directly to the page
+}
+// Handle specific predefined queries
+else if (user === "who are you") {
+  chatLog.innerHTML += "Hello ☺, I am College Mantra, your chat assistant. How can I help you today?<br>";
+}
 
-    else if (user === "what is your name") {
-      chatLog.innerHTML += "Iam College mantra.<br>";
-    }
+else if (user === "what is your name") {
+  chatLog.innerHTML += "I am College Mantra.<br>";
+}
 
-    else if (user === "hi") {
-      chatLog.innerHTML += "Hello ☺! How can I help you today<br>";
-    }
+else if (user === "hi" || user === "hello" || user === "hey") {
+  chatLog.innerHTML += "Hi ☺! How can I help you today?<br>";
+}
 
-    else if (user === "hii") {
-      chatLog.innerHTML += "Hello ☺, how may I help you<br>";
-    }
+else if (user === "hii" || user === "hiya" || user === "hey there") {
+  chatLog.innerHTML += "Hello ☺, how may I assist you?<br>";
+}
 
-    else if (user === "Thank you") {
-      chatLog.innerHTML += "Welcome ☺<br>";
-    }
+else if (user === "thank you" || user === "thanks") {
+  chatLog.innerHTML += "You're welcome ☺! Let me know if you need anything else.<br>";
+}
 
-    else if (user === "hello") {
-      chatLog.innerHTML += "Hi ☺! How can I help you?<br>";
-    }
+else if (user === "what can you do") {
+  chatLog.innerHTML += "I can assist you with information, answer general queries, and help with SRIT-related topics.<br>";
+}
 
-    else if (user === "what is your name") {
-      chatLog.innerHTML += "You can call me College Mantra<br>";
-    }
+else if (user === "what's your purpose" || user === "what do you do") {
+  chatLog.innerHTML += "I’m here to assist you with any questions and help you navigate through SRIT-related information.<br>";
+}
 
-    else if (user === "what can you do") {
-      chatLog.innerHTML += "I'm here to help you with any kind of information related to SRIT<br>";
-    }
+else if (user === "how are you") {
+  chatLog.innerHTML += "I’m doing great, thanks for asking! How about you?<br>";
+}
 
-    else if (user === "srit") {
-      chatLog.innerHTML += "Srinivasa Ramanujan Institute Of Technology<br>";
-    }
+else if (user === "how do you do") {
+  chatLog.innerHTML += "I’m doing well, thanks! How can I help you?<br>";
+}
 
-    else if (user === "who created you") {
-      chatLog.innerHTML += "I have created by four students from CSE<br>";
-    }
+else if (user === "contact number" || user === "phone number") {
+  chatLog.innerHTML += "You can reach us at: tel:9515611111<br>";
+}
 
-    else if (user === "who are they") {
-      chatLog.innerHTML += "Navya-555, Madhuri-543, Tauheed-547, Rehan-554<br>";
-    }
+else if (user === "bye" || user === "goodbye" || user === "see you") {
+  chatLog.innerHTML += "Okay! Will meet soon. Have a great day!<br>";
+}
 
-    else if (user === "good morning") {
-      chatLog.innerHTML += "Good morning ☺, how can I help you?<br>";
-    }
+else if (user === "help" || user === "assist me") {
+  chatLog.innerHTML += "I'm here to help! Just let me know what you need.<br>";
+}
 
-    else if (user === "good afternoon") {
-      chatLog.innerHTML += "Good afternoon ☺, how can I help you?<br>";
-    }
+else if (user === "what can I ask you") {
+  chatLog.innerHTML += "Feel free to ask about anything related to SRIT or general information!<br>";
+}
 
-    else if (user === "good evening") {
-      chatLog.innerHTML += "Good evening ☺, how can I help you?<br>";
-    }
-    
-    else if (user === "good night") {
-      chatLog.innerHTML += "Good night ☺, how can I help you?<br>";
-    }
+else if (user === "do you have a team") {
+  chatLog.innerHTML += "Yes, I was created by four students from the CSE department.<br>";
+}
 
-    else if (user === "how are you") {
-      chatLog.innerHTML += "Good :)<br>";
-    } 
+else if (user === "tell me a joke") {
+  chatLog.innerHTML += "Why don't skeletons fight each other? They don't have the guts! 😄<br>";
+}
 
-    else if (user === "contact number") {
-      chatLog.innerHTML += "tel:9515611111<br>";
-    } 
-    
-    else if (user === "bye") {
-      chatLog.innerHTML += "Okay! Will meet soon.<br>";
-    }  
-    
-    else if (user === "how do you do") {
-       chatLog.innerHTML += "Good :)<br>";
-    }
-    
-    else if (s.includes("whatsapp")) {
-        // Open WhatsApp if the input includes "open whatsapp"
-       window.open("whatsapp://", "_blank");
-    }
+else if (user === "tell me a quote") {
+  chatLog.innerHTML += "“The only way to do great work is to love what you do.” – Steve Jobs<br>";
+}
 
-    else if (s.includes("youtube")) {
-    // Open YouTube if the input includes "open youtube"
-    window.open("https://www.youtube.com", "_blank");
-    }
+else if (user === "how to contact support" || user === "contact support") {
+  chatLog.innerHTML += "You can contact support through the contact number: tel:9515611111 or visit the helpdesk.<br>";
+}
 
-    else if (s.includes("instagram")) {
-    // Open Instagram if the input includes "open instagram"
-    window.open("https://www.instagram.com", "_blank");
-    }
+else if (user === "what is your favorite color") {
+  chatLog.innerHTML += "I don't have a favorite color, but I love all colors! 🌈<br>";
+}
 
-    else if (s.includes("calculator")) {
-    // Open Calculator if the input includes "open calculator"
-    window.open("calc://", "_blank");
-    }
+else if (user === "how do you work") {
+  chatLog.innerHTML += "I work by analyzing your queries and responding with the best possible answers based on the information I have.<br>";
+}
 
+else if (user === "who created you") {
+  chatLog.innerHTML += "I was created by students from SRIT’s CSE department.<br>";
+}
+
+else if (user === "what is your purpose in life") {
+  chatLog.innerHTML += "My purpose is to assist you, make information accessible, and make your experience better.<br>";
+}
+
+else if (user === "do you have a mind") {
+  chatLog.innerHTML += "I don't have a mind, but I process information to assist you in the best way possible.<br>";
+}
+
+else if (user === "can you think") {
+  chatLog.innerHTML += "I don’t think like humans, but I’m designed to answer your queries as accurately as possible.<br>";
+}
+
+else if (user === "are you human") {
+  chatLog.innerHTML += "No, I'm an AI assistant created by humans to help you with your queries.<br>";
+}
+
+else if (user === "what is your favorite food") {
+  chatLog.innerHTML += "I don't eat, but I hear pizza is quite popular! 🍕<br>";
+}
+
+else if (user === "what is your favorite book") {
+  chatLog.innerHTML += "I don’t read books, but I do love learning from all kinds of knowledge!📚<br>";
+}
+
+else if (user === "do you have emotions") {
+  chatLog.innerHTML += "I don't have emotions, but I’m designed to respond with kindness and help whenever you need.<br>";
+}
+
+else if (user === "are you always available") {
+  chatLog.innerHTML += "Yes, I am available 24/7! Just ask whenever you need help.<br>";
+}
+
+else if (user === "tell me about yourself") {
+  chatLog.innerHTML += "I am College Mantra, an AI assistant built to help you with SRIT-related queries and make information easy to access!<br>";
+}
+
+else if (user === "how old are you") {
+  chatLog.innerHTML += "I don't age, but I was created to help you right now and always!<br>";
+}
+
+else if (user === "is this a joke") {
+  chatLog.innerHTML += "It depends on how you look at it! 😄 I'm always happy to answer your questions.<br>";
+}
+else if (user === "why are you here") {
+  chatLog.innerHTML += "I am here to assist you and make your experience better. Feel free to ask me anything.<br>";
+}
+
+else if (user === "can you answer any question") {
+  chatLog.innerHTML += "I'll try my best to answer any question you have! Ask away!<br>";
+}
+else if (user === "what is the meaning of life") {
+  chatLog.innerHTML += "The meaning of life is different for everyone! For me, it’s to assist and help you with anything you need.<br>";
+}
+   
+else if (user == "h and s hod" || user == "gurusiddappa" || user == "guru siddappa" || user == "who is h and s hod" || user == "who is gurusiddappa" || user == "who is guru siddappa" || user == "who is h&s" || user == "who is h & s" || user == "who is humanities and sciences hod" || user == "who is the h and s hod" || user == "who is the gurusiddappa" || user == "who is the guru siddappa" || user == "who is the h&s" || user == "who is the h & s" || user == "who is the humanities and sciences hod") {
+    window.open("https://sites.google.com/view/gurusiddappa/home");
+} else if (user == "where is civil hod cabin" || user == "where is the civil hod cabin" || user == "where is civil room" || user == "where is the civil room") {
+  window.location.href = "civil dept.html"; // Navigate directly to the page
+} else if (user == "where is csd and csm hod cabin" || user == "where is the csd and csm hod cabin" || user == "where is csd hod cabin" || user == "where is the csd hod cabin" || user == "where is csm hod cabin" || user == "where is the csm hod cabin" || user == "where is hod cabin of csm" || user == "where is the hod cabin of csm" || user == "where is hod cabin of csd" || user == "where is the hod cabin of csd" || user == "where is hod cabin of csd and csm" || user == "where is the hod cabin of csd and csm") {
+  window.location.href = "csd and csm dept.html"; // Navigate directly to the page
+} else if (user == "where is cse hod cabin" || user == "where is the cse hod cabin" || user == "where is hod cabin of cse" || user == "where is the hod cabin of cse") {
+  window.location.href = "csehodcabin.html"; // Navigate directly to the page
+} else if (user == "where is ece hod cabin" || user == "where is the ece hod cabin" || user == "where is hod cabin of ece" || user == "where is the hod cabin of ece") {
+  window.location.href = "ece dept.html"; // Navigate directly to the page
+} else if (user == "where is eee hod cabin" || user == "where is the eee hod cabin" || user == "where is hod cabin of eee" || user == "where is the hod cabin of eee") {
+  window.location.href = "eee dept.html"; // Navigate directly to the page
+} else if (user == "where is h and s hod cabin" || user == "where is the h and s hod cabin" || user == "where is h & s hod cabin" || user == "where is the h & s hod cabin" || user == "where is hod cabin of h and s" || user == "where is the hod cabin of h and s" || user == "where is hod cabin of h & s" || user == "where is the hod cabin of h & s") {
+  window.location.href = "h an s hod cabin.html"; // Navigate directly to the page
+} else if (user == "where is mechanical hod cabin" || user == "where is the mechanical hod cabin" || user == "where is hod cabin of mechanical" || user == "where is the hod cabin of mechanical") {
+  window.location.href = "mechanical hod cabin.html"; // Navigate directly to the page
+} else if (user == "where can I find civil hod cabin" || user == "where can I find civil room") {
+  window.location.href = "civil dept.html"; // Navigate directly to the page
+} else if (user == "where can I find csd and csm hod cabin" || user == "where can I find csd hod cabin" || user == "where can I find csm hod cabin" || user == "where can I find hod cabin of csm" || user == "where can I find hod cabin of csd" || user == "where can I find hod cabin of csd and csm") {
+  window.location.href = "csd and csm dept.html"; // Navigate directly to the page
+} else if (user == "where can I find cse hod cabin" || user == "where can I find hod cabin of cse") {
+  window.location.href = "csehodcabin.html"; // Navigate directly to the page
+} else if (user == "where can I find ece hod cabin" || user == "where can I find hod cabin of ece") {
+  window.location.href = "ece dept.html"; // Navigate directly to the page
+} else if (user == "where can I find eee hod cabin" || user == "where can I find hod cabin of eee") {
+  window.location.href = "eee dept.html"; // Navigate directly to the page
+} else if (user == "where can I find h and s hod cabin" || user == "where can I find h & s hod cabin" || user == "where can I find hod cabin of h and s" || user == "where can I find hod cabin of h & s") {
+  window.location.href = "h an s hod cabin.html"; // Navigate directly to the page
+} else if (user == "where can I find mechanical hod cabin" || user == "where can I find hod cabin of mechanical") {
+  window.location.href = "mechanical hod cabin.html"; // Navigate directly to the page
+} else if (user == "where can i find civil hod cabin" || user == "where can i find civil room") {
+  window.location.href = "civil dept.html"; // Navigate directly to the page
+} else if (user == "where can i find csd and csm hod cabin" || user == "where can i find csd hod cabin" || user == "where can i find csm hod cabin" || user == "where can i find hod cabin of csm" || user == "where can i find hod cabin of csd" || user == "where can i find hod cabin of csd and csm") {
+  window.location.href = "csd and csm dept.html"; // Navigate directly to the page
+} else if (user == "where can i find cse hod cabin" || user == "where can i find hod cabin of cse") {
+  window.location.href = "csehodcabin.html"; // Navigate directly to the page
+} else if (user == "where can i find ece hod cabin" || user == "where can i find hod cabin of ece") {
+  window.location.href = "ece dept.html"; // Navigate directly to the page
+} else if (user == "where can i find eee hod cabin" || user == "where can i find hod cabin of eee") {
+  window.location.href = "eee dept.html"; // Navigate directly to the page
+} else if (user == "where can i find h and s hod cabin" || user == "where can i find h & s hod cabin" || user == "where can i find hod cabin of h and s" || user == "where can i find hod cabin of h & s") {
+  window.location.href = "h an s hod cabin.html"; // Navigate directly to the page
+} else if (user == "where can i find mechanical hod cabin" || user == "where can i find hod cabin of mechanical") {
+  window.location.href = "mechanical hod cabin.html"; // Navigate directly to the page
+} else if (user == "how can i go to civil hod cabin" || user == "how can I go to civil hod cabin" || user == "how can i go to civil room" || user == "how can I go to civil room") {
+  window.location.href = "civil dept.html"; // Navigate directly to the page
+} else if (user == "how can i go to csd and csm hod cabin" || user == "how can I go to csd and csm hod cabin" || user == "how can i go to csd hod cabin" || user == "how can I go to csd hod cabin" || user == "how can i go to csm hod cabin" || user == "how can I go to csm hod cabin" || user == "how can i go to hod cabin of csm" || user == "how can I go to hod cabin of csm" || user == "how can i go to hod cabin of csd" || user == "how can I go to hod cabin of csd" || user == "how can i go to hod cabin of csd and csm" || user == "how can I go to hod cabin of csd and csm") {
+  window.location.href = "csd and csm dept.html"; // Navigate directly to the page
+} else if (user == "how can i go to cse hod cabin" || user == "how can I go to cse hod cabin" || user == "how can i go to hod cabin of cse" || user == "how can I go to hod cabin of cse") {
+  window.location.href = "csehodcabin.html"; // Navigate directly to the page
+} else if (user == "how can i go to ece hod cabin" || user == "how can I go to ece hod cabin" || user == "how can i go to hod cabin of ece" || user == "how can I go to hod cabin of ece") {
+  window.location.href = "ece dept.html"; // Navigate directly to the page
+} else if (user == "how can i go to eee hod cabin" || user == "how can I go to eee hod cabin" || user == "how can i go to hod cabin of eee" || user == "how can I go to hod cabin of eee") {
+  window.location.href = "eee dept.html"; // Navigate directly to the page
+} else if (user == "how can i go to h and s hod cabin" || user == "how can I go to h and s hod cabin" || user == "how can i go to h & s hod cabin" || user == "how can I go to h & s hod cabin" || user == "how can i go to hod cabin of h and s" || user == "how can I go to hod cabin of h and s" || user == "how can i go to hod cabin of h & s" || user == "how can I go to hod cabin of h & s") {
+  window.location.href = "h an s hod cabin.html"; // Navigate directly to the page
+} else if (user == "how can i go to mechanical hod cabin" || user == "how can I go to mechanical hod cabin" || user == "how can i go to hod cabin of mechanical" || user == "how can I go to hod cabin of mechanical") {
+  window.location.href = "mechanical hod cabin.html"; // Navigate directly to the page
+} else if (user == "find location of civil hod cabin" || user == "find the location of civil hod cabin" || user == "find location of civil room" || user == "find the location of civil room") {
+  window.location.href = "civil dept.html"; // Navigate directly to the page
+} else if (user == "find location of csd and csm hod cabin" || user == "find the location of csd and csm hod cabin" || user == "find location of csd hod cabin" || user == "find the location of csd hod cabin" || user == "find location of csm hod cabin" || user == "find the location of csm hod cabin" || user == "find location of hod cabin of csm" || user == "find the location of hod cabin of csm" || user == "find location of hod cabin of csd" || user == "find the location of hod cabin of csd" || user == "find location of hod cabin of csd and csm" || user == "find the location of hod cabin of csd and csm") {
+  window.location.href = "csd and csm dept.html"; // Navigate directly to the page
+} else if (user == "find location of cse hod cabin" || user == "find the location of cse hod cabin" || user == "find location of hod cabin of cse" || user == "find the location of hod cabin of cse") {
+  window.location.href = "csehodcabin.html"; // Navigate directly to the page
+} else if (user == "find location of ece hod cabin" || user == "find the location of ece hod cabin" || user == "find location of hod cabin of ece" || user == "find the location of hod cabin of ece") {
+  window.location.href = "ece dept.html"; // Navigate directly to the page
+} else if (user == "find location of eee hod cabin" || user == "find the location of eee hod cabin" || user == "find location of hod cabin of eee" || user == "find the location of hod cabin of eee") {
+  window.location.href = "eee dept.html"; // Navigate directly to the page
+} else if (user == "find location of h and s hod cabin" || user == "find the location of h and s hod cabin" || user == "find location of h & s hod cabin" || user == "find the location of h & s hod cabin" || user == "find location of hod cabin of h and s" || user == "find the location of hod cabin of h and s" || user == "find location of hod cabin of h & s" || user == "find the location of hod cabin of h & s") {
+  window.location.href = "h an s hod cabin.html"; // Navigate directly to the page
+} else if (user == "find location of mechanical hod cabin" || user == "find the location of mechanical hod cabin" || user == "find location of hod cabin of mechanical" || user == "find the location of hod cabin of mechanical") {
+  window.location.href = "mechanical hod cabin.html"; // Navigate directly to the page
+} else if (s.includes("whatsapp")) {
+  // Open WhatsApp if the input includes "open whatsapp"
+  window.open("whatsapp://", "_blank");
+} 
     else if (s.includes("settings")) {
     // Open Settings if the input includes "open settings"
     window.open("ms-settings://", "_blank");
@@ -315,10 +523,6 @@
 
     else if (s.includes("alumni")) {
       window.open("http://alumni.srit.ac.in/ ");
-    }
-
-    else if (s.includes("library")) {
-      window.location.href = "library.html"; // Use this to navigate directly to the page
     }
 
     else if (s.includes("contact")) {
@@ -433,7 +637,7 @@
     window.open("https://sritexams.in/eportal/Login.aspx");
    }
 
-   else if (s.includes("previous question paper")|| s.includes("question paper")||s.includes("previous year question")) {
+   else if (s.includes("previous question papers")|| s.includes("question papers")) {
     window.open("https://www.srit.ac.in/previous-question-papers/");
    } 
 
@@ -477,7 +681,7 @@
     window.open("https://www.srit.ac.in/national-service-scheme/");
    } 
 
-   else if (s.includes("rotary club")|| s.includes("rotract")||s.includes("rotract club")) {
+   else if (s.includes("rotary club")|| s.includes("rotract")) {
     window.open("https://www.srit.ac.in/rotaract-club/");
    }
 
@@ -708,19 +912,25 @@ else if (s.includes("eamcet")||s.includes("eapcet")) {
 else if (s.includes("about college")||s.includes("college details")) {
     window.open("https://drive.google.com/file/d/1HminceY6KXEMxH5SqKnVedr1GRyviuf8/view?usp=sharing");
 }
-
 else {
-        // If no match is found, perform a Google search
-        window.open(`https://www.google.com/search?q=${encodeURIComponent(user)}`, '_blank');
-   }
+    // If no match is found, ask for confirmation before opening in the internet
+    chatLog.innerHTML = "Sorry, I didn't understand that.<br>Check your spelling or Would you like me to open it on the internet? <br><button id='openBtn'>Open</button>";
 
-      // Show the chat log after input is provided
-    chatLog.style.display = 'block';
-
-    // Clear the input field after submitting
-    document.getElementById('userBox').value = '';
-
+    // Wait for the user to click 'Open'
+    document.getElementById('openBtn').onclick = function() {
+      window.open(`https://www.google.com/search?q=${encodeURIComponent(user)}`, '_blank');
+    };
   }
+}
+document.getElementById('userBox').addEventListener('input', function () {
+  var userBox = document.getElementById('userBox');
+  var chatLog = document.getElementById('chatLog');
+
+  // If input is empty, hide the output box
+  if (userBox.value.trim() === "") {
+    chatLog.style.display = 'none';
+  }
+});
   </script>
 </body>
 </html>
