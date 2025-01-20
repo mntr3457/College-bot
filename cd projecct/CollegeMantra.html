@@ -172,6 +172,7 @@
 .proceed-btn:hover {
   background-color: #45a049; /* Darker green on hover */
 }
+
   </style>
 </head>
 <body>
@@ -186,7 +187,7 @@
   </div>
 
   <div class="chat-container" id="chatContainer">
-    <!-- Messages will be added here dynamically -->
+    <p><b><i>Just type anything and get to know everything !</b> </p>
   </div>
 
   <div class="input-container">
@@ -490,6 +491,30 @@ else if (userInput == "hii" || userInput == "hiya" || userInput == "hey there") 
 else if (userInput == "thank you" || userInput == "thanks") {
   botMessage.classList.add('message', 'received');
   botMessage.innerHTML = "You're welcome! Let me know if you need anything else.";
+  chatContainer.appendChild(botMessage);
+}
+
+else if (userInput == "good morning" || userInput == "goodmorning") {
+  botMessage.classList.add('message', 'received');
+  botMessage.innerHTML = "Good morning! Let me know if you need anything.";
+  chatContainer.appendChild(botMessage);
+}
+
+else if (userInput == "good afternoon" || userInput == "good after noon"|| userInput=="goodafternoon") {
+  botMessage.classList.add('message', 'received');
+  botMessage.innerHTML = "Good After noon! Let me know if you need anything.";
+  chatContainer.appendChild(botMessage);
+}
+
+else if (userInput == "good evening" || userInput=="goodevening") {
+  botMessage.classList.add('message', 'received');
+  botMessage.innerHTML = "Good Evening! Let me know if you need anything.";
+  chatContainer.appendChild(botMessage);
+}
+
+else if (userInput == "good night" || userInput == "goodnight") {
+  botMessage.classList.add('message', 'received');
+  botMessage.innerHTML = "Good Night! Let me know if you need anything.";
   chatContainer.appendChild(botMessage);
 }
 
