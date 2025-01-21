@@ -6,103 +6,192 @@
     <title>Tara, Virtual Assistant</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Protest+Guerrilla&display=swap');
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    width: 100%;
-    height: 100%;
-    background-color: black;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 30px;
-    flex-direction: column;
-}
-#logo-container {
-    width: 15%; /* Adjust size */
-    position: relative;
-}
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-#logo {
-    width: 30%;
-}
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            flex-direction: column;
+        }
 
-h1{
-    color: aliceblue;
-    font-family: "Protest Guerrilla", sans-serif;
-}
-#name{
-    color: rgb(44, 158, 220);
-    font-size: 50px;
-}
-#va{
-    color: #ea4c09;
-    font-size: 50px;
-}
-#voice{
-    width: 250px;
-    display: none;
-}
-#btn{
-    width: 30%;
-    background: linear-gradient(to right, #ea4c09,rgb(44, 158, 220));
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 20px;
-    border-radius: 20px;
-    color: white;
-    box-shadow: 2px 2px 10px rgb(21, 145, 207),2px 2px 10px rgb(201,41,116);
-    border: none;
-    transition: all 0.5s;
-    cursor: pointer;
-}
-#btn:hover{
-    box-shadow: 2px 2px 10px rgb(21, 145, 207),2px 2px 10px rgb(201,41,116);
-    letter-spacing: 2px;
+        #logo-container {
+            width: 15%; /* Adjust size */
+            position: relative;
+        }
 
-}
-.footer {
-    background: transparent; 
-    color: rgba(255, 255, 255, 0.7); 
-    text-align: center;
-    padding: 10px;
-    position: absolute;
-    bottom: 6px;
-    width: 100%;
-    right: 640px;
-    font-size: 0.8rem; 
-}
-.help-icon {
-    width: 60px;
-    height: 40px;
-    background-color: #8c8f90; 
-    border-radius: 20px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
+        #logo {
+            width: 30%;
+        }
 
-.question-mark {
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-}
+        h1 {
+            color: aliceblue;
+            font-family: "Protest Guerrilla", sans-serif;
+        }
 
-/* Optional: Hover effect */
-.help-icon:hover {
-    background-color: #bd5a09; /* Slightly darker green on hover */
-}
+        #name {
+            color: rgb(44, 158, 220);
+            font-size: 50px;
+        }
+
+        #va {
+            color: #ea4c09;
+            font-size: 50px;
+        }
+
+        #voice {
+            width: 250px;
+            display: none;
+        }
+
+        #btn {
+            width: 30%;
+            background: linear-gradient(to right, #ea4c09, rgb(44, 158, 220));
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 20px;
+            border-radius: 20px;
+            color: white;
+            box-shadow: 2px 2px 10px rgb(21, 145, 207), 2px 2px 10px rgb(201, 41, 116);
+            border: none;
+            transition: all 0.5s;
+            cursor: pointer;
+        }
+
+        #btn:hover {
+            box-shadow: 2px 2px 10px rgb(21, 145, 207), 2px 2px 10px rgb(201, 41, 116);
+            letter-spacing: 2px;
+        }
+
+        .footer {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            padding: 10px;
+            position: absolute;
+            bottom: 6px;
+            width: 100%;
+            right: 640px;
+            font-size: 0.8rem;
+        }
+
+        .help-icon {
+            width: 60px;
+            height: 40px;
+            background-color: #8c8f90;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-mark {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        /* Optional: Hover effect */
+        .help-icon:hover {
+            background-color: #bd5a09;
+        }
+
+        /* Mobile responsive adjustments */
+        @media screen and (max-width: 768px) {
+            body {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            h1 {
+                font-size: 30px; /* Adjust font size for smaller screens */
+            }
+
+            #name {
+                font-size: 40px;
+            }
+
+            #va {
+                font-size: 40px;
+            }
+
+            #btn {
+                width: 60%;
+                font-size: 18px;
+                padding: 8px;
+            }
+
+            .footer {
+                font-size: 0.7rem;
+                padding: 8px;
+                right: 0;
+                width: 100%;
+            }
+
+            .help-icon {
+                width: 50px;
+                height: 35px;
+            }
+
+            .help-icon .question-mark {
+                font-size: 20px;
+            }
+        }
+
+        /* For very small screens like phones in portrait mode */
+        @media screen and (max-width: 480px) {
+            #btn {
+                width: 80%;
+                font-size: 16px;
+                padding: 6px;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            #name {
+                font-size: 35px;
+            }
+
+            #va {
+                font-size: 35px;
+            }
+
+            .footer {
+                font-size: 0.6rem;
+                padding: 5px;
+                right: 0;
+                width: 100%;
+            }
+
+            .help-icon {
+                width: 45px;
+                height: 30px;
+            }
+
+            .help-icon .question-mark {
+                font-size: 18px;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -226,6 +315,14 @@ function takeCommand(message) {
         speak(`Opening the SRIT ${admissionType} for you.`);
         window.open("https://www.srit.ac.in/admission-procedure/", "_blank");
 
+    } else if (message.includes("location of exam section")) {
+        speak("Opening location of exam section for you.");
+        window.open("examsection.html", "_blank");
+
+    } else if (message.includes("location of fee payment")) {
+        speak("Opening location of fee payment for you.");
+        window.open("feepayment.html", "_blank");
+
     } else if (message.includes("e-services") || message.includes("exam portal") || message.includes("result") || message.includes("fee payment") || message.includes("payment") || message.includes("pay")) {
         let eserviceType = message.includes("e-services") ? "eservices" :
                      message.includes("exam portal") ? "exam portal" :
@@ -272,6 +369,18 @@ function takeCommand(message) {
         speak(`Opening ${cseHOD} profile for you.`);
         window.open("https://sites.google.com/view/pvprakash/home", "_blank");
 
+    } else if (message.includes("location of csd department") || message.includes("location of csm department") ||  message.includes("location of csd hod cabin") || message.includes("location of csm hod cabin")){
+        let loccsdm = message.includes("location of csd department") ? "location of csd department" :
+                     message.includes("location of csm department") ? "location of csm department" :
+                     message.includes("location of csd hod cabin") ? "location of csd hod cabin" : "location of csm hod cabin" ;
+        speak(`Opening the SRIT ${loccsdm} for you.`);
+        window.open("csd and csm dept.html", "_blank");
+
+    }  else if (message.includes("location of cse hod cabin") || message.includes("location of cse department")) {
+        let loccse = message.includes("location of cse hod cabin") ? "location of cse hod cabin" : "location of cse department";
+        speak(`Opening the SRIT ${loccse} for you.`);
+        window.open("csehodcabin.html", "_blank");
+
     } else if (message.includes("csd hod") || message.includes("csm hod") || message.includes("chitralingappa") || message.includes("chitra lingappa")) {
         let csdHOD = message.includes("csd hod") ? "csd h o d" :
                      message.includes("csm hod") ? "csm h o d" : 
@@ -279,11 +388,21 @@ function takeCommand(message) {
         speak(`Opening ${csdHOD} profile for you.`);
         window.open("https://sites.google.com/view/drpcl/home", "_blank");
 
+    } else if (message.includes("location of ece hod cabin") || message.includes("location of ece department")) {
+        let locece = message.includes("location of ece hod cabin") ? "location of ece hod cabin" : "location of ece department";
+        speak(`Opening the SRIT ${locece} for you.`);
+        window.open("ece dept.html", "_blank");
+
     } else if (message.includes("ece hod") || message.includes("ravi chandra") || message.includes("ravichandra")) {
         let eceHOD = message.includes("ece hod") ? "ece h o d" : 
                      message.includes("ravi chandra") ? "ravi chandra sir" :"ravichandra sir";
         speak(`Opening ${eceHOD} profile for you.`);
         window.open("https://sites.google.com/view/drmlravichandra/", "_blank");
+
+    } else if (message.includes("location of eee hod cabin") || message.includes("location of eee department")) {
+        let loceee = message.includes("location of eee hod cabin") ? "location of eee hod cabin" : "location of eee department";
+        speak(`Opening the SRIT ${loceee} for you.`);
+        window.open("eee dept.html", "_blank");
 
     } else if (message.includes("eee hod") || message.includes("merimata") || message.includes("meri mata")) {
         let eeeHOD = message.includes("eee hod") ? "eee h o d" : 
@@ -291,11 +410,21 @@ function takeCommand(message) {
         speak(`Opening ${eeeHOD} profile for you.`);
         window.open("https://sites.google.com/view/meerimathaeee/home?authuser=0", "_blank");
 
+    } else if (message.includes("location of civil hod cabin") || message.includes("location of civil department")) {
+        let loccivil = message.includes("location of civil hod cabin") ? "location of civil hod cabin" : "location of civil department";
+        speak(`Opening the SRIT ${loccivil} for you.`);
+        window.open("civil dept.html", "_blank");
+
     } else if (message.includes("civil hod") || message.includes("chinna venkata") || message.includes("chinnavenkata")) {
         let civHOD = message.includes("civil hod") ? "civil h o d" : 
                      message.includes("chinna venkata") ? "chinna venkata sir" : "chinnavenkata sir";
         speak(`Opening ${civHOD} profile for you.`);
         window.open("https://sites.google.com/srit.ac.in/drtcvenkatareddy/home", "_blank");
+
+    } else if (message.includes("location of mechanical hod cabin") || message.includes("location of mechanical department")) {
+        let locmec = message.includes("location of mechanical hod cabin") ? "location of mechanical hod cabin" : "location of mechanical department";
+        speak(`Opening the SRIT ${locmec} for you.`);
+        window.open("mechanical hod cabin dept.html", "_blank");
 
     } else if (message.includes("mec hod") || message.includes("vamsi krishna") || message.includes("mechanical hod") || message.includes("vamsikrishana")) {
         let mecHOD = message.includes("mec hod") ? "mec h o d" : 
@@ -349,7 +478,12 @@ function takeCommand(message) {
         speak(`Opening the SRIT ${civDep} for you.`);
         window.open("https://www.srit.ac.in/civil-engineering-2/", "_blank");
 
-    } else if (message.includes("h and s") || message.includes("humanities") ||  message.includes("sciences") || message.includes("h&s")){
+    } else if (message.includes("location of h and s hod cabin") || message.includes("location of h and s department")) {
+        let lochands = message.includes("location of h and s hod cabin") ? "location of h and s hod cabin" : "location of h and s hod cabin";
+        speak(`Opening the SRIT ${lochands} for you.`);
+        window.open("h and s hod cabin.html", "_blank");
+
+    }else if (message.includes("h and s") || message.includes("humanities") ||  message.includes("sciences") || message.includes("h&s")){
         let hsDep = message.includes("h and s") ? "h and s" :
                      message.includes("humanities") ? "humanities" :
                      message.includes("sciences") ? "sciences" : "h&s" ;
@@ -459,6 +593,11 @@ function takeCommand(message) {
         speak(`Opening the SRIT ${placementType} for you.`);
         window.open("https://www.srit.ac.in/training-placement-statistics/", "_blank");
 
+    } else if (message.includes("location of sports") || message.includes("location of ncc")) {
+        let locncc = message.includes("location of sports") ? "location of sports" : "location of ncc";
+        speak(`Opening the SRIT ${locncc} for you.`);
+        window.open("https://www.srit.ac.in/training-placement-statistics/", "_blank");
+
     } else if (message.includes("ncc") || message.includes("national cadet corps")) {
         let nccType = message.includes("ncc") ? "ncc" : "national cadet corps";
         speak(`Opening the SRIT ${nccType} for you.`);
@@ -501,6 +640,10 @@ function takeCommand(message) {
         let founter = message.includes("secretary") ? "secretary" : "founder";
         speak(`Opening the SRIT ${founter} for you.`);
         window.open("https://www.srit.ac.in/about-founder-secretary/", "_blank");
+
+    }  else if (message.includes("location of principal")) {
+        speak("Opening location of principal room for you.");
+        window.open("principalroom.html", "_blank");
 
     } else if (message.includes("principal") || message.includes("balakrishna")) {
         let principal = message.includes("principal") ? "principal" : "balakrishna" ;
@@ -605,6 +748,62 @@ function takeCommand(message) {
     } else if (message.includes("nagesh")) {
         speak("Opening nagesh profile for you.");
         window.open("https://sites.google.com/srit.ac.in/nagesh-cse/home", "_blank");
+
+    } else if (message.includes("location of basketball")) {
+        speak("Opening location of basketball for you.");
+        window.open("basketball.html", "_blank");
+
+    } else if (message.includes("location of b block seminar hall")) {
+        speak("Opening location of b block seminar hall for you.");
+        window.open("bblockseminarhall.html", "_blank");
+
+    } else if (message.includes("location of boys washroom")) {
+        speak("Opening location of boys washroom for you.");
+        window.open("boys washroom.html", "_blank");
+
+    } else if (message.includes("location of boys hostel")) {
+        speak("Opening location of boys hostel for you.");
+        window.open("boyshostel.html", "_blank");
+
+    } else if (message.includes("location of canteen")) {
+        speak("Opening location of canteen for you.");
+        window.open("canteen.html", "_blank");
+
+    } else if (message.includes("location of chemistry lab")) {
+        speak("Opening location of chemistry lab for you.");
+        window.open("chemistrylab.html", "_blank");
+
+    } else if (message.includes("location of computer lab")) {
+        speak("Opening location of computer labs for you.");
+        window.open("computer labs.html", "_blank");
+
+    } else if (message.includes("location of girls hostel")) {
+        speak("Opening location of girls hostel for you.");
+        window.open("girlshostel.html", "_blank");
+
+    } else if (message.includes("location of girls washroom")) {
+        speak("Opening location of girls washroom for you.");
+        window.open("girlswashroom.html", "_blank");
+
+    } else if (message.includes("location of ground")) {
+        speak("Opening location of ground floor for you.");
+        window.open("ground.html", "_blank");
+
+    } else if (message.includes("location of main block seminar hall")) {
+        speak("Opening location of main block seminar hall for you.");
+        window.open("mainblockseminarhall.html", "_blank");
+
+    } else if (message.includes("location of physics lab")) {
+        speak("Opening location of physics lab for you.");
+        window.open("physics lab.html", "_blank");
+
+    } else if (message.includes("location of staff room")) {
+        speak("Opening location of staff room for you.");
+        window.open("staffroom.html", "_blank");
+
+    } else if (message.includes("location of waterfacility")) {
+        speak("Opening location of waterfacility for you.");
+        window.open("waterfacility.html", "_blank");
 
     } else { 
         speak("I'm sorry, I can only provide information related to SRIT. How else can I assist you?");
